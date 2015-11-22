@@ -15,7 +15,7 @@ NeuronLayer::NeuronLayer(int numNeurons, int numInputsPerNeuron): m_NumNeurons(n
 
 NeuralNet::NeuralNet(){
     m_NumInputs = mapArrayWidth*mapArrayHeight;
-    m_NumOutputs = 2;
+    m_NumOutputs = 1;
     m_NumHiddenLayers = numHiddenLayers;
     m_NeuronsPerHiddenLayer = neuronsPerHiddenLayer;
 

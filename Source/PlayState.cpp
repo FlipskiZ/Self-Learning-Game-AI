@@ -70,9 +70,9 @@ void PlayState::update(Engine* engine){
         }
         m_outputs = networkList[currentNetwork].update(m_inputs);
 
-        if(m_outputs[0] == 1){
+        if(m_outputs[0] >= 0.75){
             playerList[0]->deltaX += 1;
-        }if(m_outputs[1] == 1){
+        }if(m_outputs[0] <= 0.25){
             playerList[0]->deltaX -= 1;
         }
     }
@@ -212,7 +212,7 @@ void PlayState::draw(Engine* engine){
     al_draw_textf(defaultFont, al_map_rgb(50, 150, 50), mapArrayWidth*tileSize, 0, NULL, "Score: %d", score);
     al_draw_textf(defaultFont, al_map_rgb(50, 150, 50), mapArrayWidth*tileSize, 20, NULL, "Turn Update Time: %fs", updateTickTime/logicSpeed);
     al_draw_textf(defaultFont, al_map_rgb(50, 150, 50), mapArrayWidth*tileSize, 40, NULL, "Updates per second: %fu/s", logicSpeed);
-    al_draw_textf(defaultFont, al_map_rgb(50, 150, 50), mapArrayWidth*tileSize, 60, NULL, "Movement: %s", (m_outputs[0] == 0 && m_outputs[1] == 0) || (m_outputs[0] == 1 && m_outputs[1] == 1) ? "Wait" : m_outputs[0] == 1 ? "Right" : "Left");
+    al_draw_textf(defaultFont, al_map_rgb(50, 150, 50), mapArrayWidth*tileSize, 60, NULL, "Movement: %s", m_outputs[0] < 0.75 && m_outputs[0] > 0.25 ? "Wait" : m_outputs[0] >= 0.75 ? "Right" : "Left");
     al_draw_textf(defaultFont, al_map_rgb(50, 150, 50), mapArrayWidth*tileSize, 80, NULL, "Current Network: %d", currentNetwork);
     al_draw_textf(defaultFont, al_map_rgb(50, 150, 50), mapArrayWidth*tileSize, 100, NULL, "Current Generation: %d", currentGeneration);
     al_draw_textf(defaultFont, al_map_rgb(50, 150, 50), mapArrayWidth*tileSize, 120, NULL, "Best Fitness Last Generation: %d", (int)bestFitness);
